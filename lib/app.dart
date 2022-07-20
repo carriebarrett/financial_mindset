@@ -1,4 +1,5 @@
 import 'package:financial_mindset/constants.dart';
+import 'package:financial_mindset/screens/all_affirmations.dart';
 import 'package:flutter/material.dart';
 import '/screens/homepage.dart';
 
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
 
         ),
       ),
-      home: const MyHomePage(title: 'Financial Mind\$et'),
+      home: const MyHomePage(title: appTitle),
+      // home: const AllAffirmationsPage(title: appTitle),
     );
   }
 }

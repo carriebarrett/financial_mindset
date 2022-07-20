@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "851982112037",
+    "project_id": "financial-mindset",
+    "storage_bucket": "financial-mindset.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:851982112037:android:8ad127c038b432dbf076cc",
+        "android_client_info": {
+          "package_name": "com.example.financial_mindset"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "851982112037-18mlpunkkb63l9i813cljtoar714b1uv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsLCb2VjBQgslk3lDuuxF7kWq-UUXj5Ks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "851982112037-18mlpunkkb63l9i813cljtoar714b1uv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

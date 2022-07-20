@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:financial_mindset/screens/all_affirmations.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
@@ -43,15 +46,65 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Center(child: Text(
-          widget.title, 
-          style: const TextStyle(color: darkSlateBlue)),)
-      ),
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          // leading: IconButton(
+          //   icon: const Icon(Icons.star),
+          //   onPressed: () {
+          //     Scaffold.of(context).openDrawer();
+          //   },
+          // ),
+          centerTitle: true,
+          title:
+              Text(widget.title, style: const TextStyle(color: darkSlateBlue)),
+          iconTheme: const IconThemeData(color: englishViolet)),
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+              decoration: BoxDecoration(
+                color: middleBlueGreen,
+              ),
+              child: Text('Navigation')),
+          ListTile(
+            title: const Text('Home'),
+            onTap: () {
+              // update state
+              // close drawer
+            },
+          ),
+          ListTile(
+            title: const Text('Favorites'),
+            onTap: () {
+              // update state
+              // close drawer
+            },
+          ),
+          ListTile(
+            title: const Text('All Affirmations'),
+            onTap: () {
+              // update state
+              // close drawer
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          AllAffirmationsPage(title: appTitle)));
+            },
+          ),
+          ListTile(
+            title: const Text('Preferences'),
+            onTap: () {
+              // update state
+              // close drawer
+            },
+          )
+        ],
+      )),
       body: Container(
         width: MediaQuery.of(context).size.width,
-      // Add box decoration
+        // Add box decoration
         decoration: const BoxDecoration(
           // Box decoration takes a gradient
           gradient: LinearGradient(
@@ -127,11 +180,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: const Icon(Icons.add, color: darkSlateBlue,),
+        child: const Icon(
+          Icons.add,
+          color: darkSlateBlue,
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
