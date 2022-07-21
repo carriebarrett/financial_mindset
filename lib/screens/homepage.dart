@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:financial_mindset/screens/all_affirmations.dart';
+import 'package:financial_mindset/widgets/gradient_background.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import '../constants.dart';
+import '../widgets/app_bar.dart';
+import '../widgets/drawer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -23,166 +27,151 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  List<Map<String, dynamic>> _randomizeAffirmations() {
+    int id1 = Random().nextInt(55) + 1;
+    int id2 = id1;
+    int id3 = id1;
+    while (id2 == id1) {
+      id2 = Random().nextInt(55) + 1;
+    }
+    while (id3 == id1 || id3 == id2) {
+      id3 = Random().nextInt(55) + 1;
+    }
+    List<Map<String, dynamic>> affirmationList = [];
+    var affirmation1 = FirebaseFirestore.instance
+        .collection('affirmations')
+        .doc(id1.toString());
+    affirmation1.get().then((DocumentSnapshot doc) {
+      affirmationList.add(doc.data() as Map<String, dynamic>);
     });
+
+    var affirmation2 = FirebaseFirestore.instance
+        .collection('affirmations')
+        .doc(id2.toString());
+    var affirmation3 = FirebaseFirestore.instance
+        .collection('affirmations')
+        .doc(id3.toString());
+    return affirmationList;
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    var newAffirmations = _randomizeAffirmations();
     return Scaffold(
-      appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          // leading: IconButton(
-          //   icon: const Icon(Icons.star),
-          //   onPressed: () {
-          //     Scaffold.of(context).openDrawer();
-          //   },
-          // ),
-          centerTitle: true,
-          title:
-              Text(widget.title, style: const TextStyle(color: darkSlateBlue)),
-          iconTheme: const IconThemeData(color: englishViolet)),
-      drawer: Drawer(
-          child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-              decoration: BoxDecoration(
-                color: middleBlueGreen,
-              ),
-              child: Text('Navigation')),
-          ListTile(
-            title: const Text('Home'),
-            onTap: () {
-              // update state
-              // close drawer
-            },
-          ),
-          ListTile(
-            title: const Text('Favorites'),
-            onTap: () {
-              // update state
-              // close drawer
-            },
-          ),
-          ListTile(
-            title: const Text('All Affirmations'),
-            onTap: () {
-              // update state
-              // close drawer
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          AllAffirmationsPage(title: appTitle)));
-            },
-          ),
-          ListTile(
-            title: const Text('Preferences'),
-            onTap: () {
-              // update state
-              // close drawer
-            },
-          )
-        ],
-      )),
+      appBar: appBar(),
+      drawer: drawer(context),
       body: Container(
         width: MediaQuery.of(context).size.width,
         // Add box decoration
-        decoration: const BoxDecoration(
-          // Box decoration takes a gradient
-          gradient: LinearGradient(
-            // Where the linear gradient begins and ends
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            // Add one stop for each color. Stops should increase from 0 to 1
-            stops: [0.2, 0.8],
-            colors: [
-              // Colors are easy thanks to Flutter's Colors class.
-              englishViolet,
-              darkSlateBlue
+        decoration: gradientBackground(),
+        child: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Today's Affirmations", 
+                style: Theme.of(context).textTheme.headline4,),
+              Semantics(
+                button: true,
+                label: 'Affirmation tile',
+                hint:
+                    'Click here to add this affirmation to your favorites',
+                
+                child: Card(
+                    child: Container(
+                        decoration: const BoxDecoration(color: middleBlueGreen),
+                        child: ListTile(
+                          title: Text('affirmation text here'),
+                          subtitle: Text('category here'),
+                          // title: Text(newAffirmations[0]['text']),
+                          // subtitle: Text(newAffirmations[0]['category']),
+                          trailing: const Icon(Icons.star),
+                          onTap: () {},
+                        ))),
+              ),
+              Semantics(
+                button: true,
+                label: 'Affirmation tile',
+                hint:
+                    'Click here to add this affirmation to your favorites',
+                
+                child: Card(
+                    child: Container(
+                        decoration: const BoxDecoration(color: middleBlueGreen),
+                        child: ListTile(
+                          title: Text('affirmation text here'),
+                          subtitle: Text('category here'),
+                          // title: Text(newAffirmations[0]['text']),
+                          // subtitle: Text(newAffirmations[0]['category']),
+                          trailing: const Icon(Icons.star),
+                          onTap: () {},
+                        ))),
+              ),
+              Semantics(
+                button: true,
+                label: 'Affirmation tile',
+                hint:
+                    'Click here to add this affirmation to your favorites',
+                
+                child: Card(
+                    child: Container(
+                        decoration: const BoxDecoration(color: middleBlueGreen),
+                        child: ListTile(
+                          title: Text('affirmation text here'),
+                          subtitle: Text('category here'),
+                          // title: Text(newAffirmations[0]['text']),
+                          // subtitle: Text(newAffirmations[0]['category']),
+                          trailing: const Icon(Icons.star),
+                          onTap: () {},
+                        ))),
+              )
+              // Container(
+              //   width: MediaQuery.of(context).size.width * 0.9,
+              //   height: MediaQuery.of(context).size.height * 0.1,
+              //   // Add box decoration
+              //   decoration: const BoxDecoration(
+              //     color: middleBlueGreen,
+              //   ),
+              //   child: Text('Affirmation goes here'),
+              // ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.02,
+              // ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width * 0.9,
+              //   height: MediaQuery.of(context).size.height * 0.1,
+              //   // Add box decoration
+              //   decoration: const BoxDecoration(
+              //     color: middleBlueGreen,
+              //   ),
+              //   child: Text('Affirmation goes here'),
+              // ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).size.height * 0.02,
+              // ),
+              // Container(
+              //   width: MediaQuery.of(context).size.width * 0.9,
+              //   height: MediaQuery.of(context).size.height * 0.1,
+              //   // Add box decoration
+              //   decoration: const BoxDecoration(
+              //     color: middleBlueGreen,
+              //   ),
+              //   child: Text('Affirmation goes here'),
+              // ),
+              // const Text(
+              //   'You have pushed the button this many times:',
+              // ),
+              // Text(
+              //   '$_counter',
+              //   style: Theme.of(context).textTheme.headline4,
+              // ),
             ],
           ),
-        ),
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.1,
-              // Add box decoration
-              decoration: const BoxDecoration(
-                color: middleBlueGreen,
-              ),
-              child: Text('Affirmation goes here'),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.1,
-              // Add box decoration
-              decoration: const BoxDecoration(
-                color: middleBlueGreen,
-              ),
-              child: Text('Affirmation goes here'),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.1,
-              // Add box decoration
-              decoration: const BoxDecoration(
-                color: middleBlueGreen,
-              ),
-              child: Text('Affirmation goes here'),
-            ),
-            // const Text(
-            //   'You have pushed the button this many times:',
-            // ),
-            // Text(
-            //   '$_counter',
-            //   style: Theme.of(context).textTheme.headline4,
-            // ),
-          ],
         ),
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _randomizeAffirmations,
         tooltip: 'Increment',
         child: const Icon(
           Icons.add,
