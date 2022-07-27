@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:financial_mindset/widgets/gradient_background.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+
 import '../constants.dart';
+import '../widgets/affirmation_card.dart';
 import '../widgets/app_bar.dart';
 import '../widgets/drawer.dart';
+import '../widgets/gradient_background.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -69,62 +71,13 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Today's Affirmations", 
-                style: Theme.of(context).textTheme.headline4,),
-              Semantics(
-                button: true,
-                label: 'Affirmation tile',
-                hint:
-                    'Click here to add this affirmation to your favorites',
-                
-                child: Card(
-                    child: Container(
-                        decoration: const BoxDecoration(color: middleBlueGreen),
-                        child: ListTile(
-                          title: Text('affirmation text here'),
-                          subtitle: Text('category here'),
-                          // title: Text(newAffirmations[0]['text']),
-                          // subtitle: Text(newAffirmations[0]['category']),
-                          trailing: const Icon(Icons.star),
-                          onTap: () {},
-                        ))),
+              Text(
+                "Today's Affirmations",
+                style: Theme.of(context).textTheme.headline4,
               ),
-              Semantics(
-                button: true,
-                label: 'Affirmation tile',
-                hint:
-                    'Click here to add this affirmation to your favorites',
-                
-                child: Card(
-                    child: Container(
-                        decoration: const BoxDecoration(color: middleBlueGreen),
-                        child: ListTile(
-                          title: Text('affirmation text here'),
-                          subtitle: Text('category here'),
-                          // title: Text(newAffirmations[0]['text']),
-                          // subtitle: Text(newAffirmations[0]['category']),
-                          trailing: const Icon(Icons.star),
-                          onTap: () {},
-                        ))),
-              ),
-              Semantics(
-                button: true,
-                label: 'Affirmation tile',
-                hint:
-                    'Click here to add this affirmation to your favorites',
-                
-                child: Card(
-                    child: Container(
-                        decoration: const BoxDecoration(color: middleBlueGreen),
-                        child: ListTile(
-                          title: Text('affirmation text here'),
-                          subtitle: Text('category here'),
-                          // title: Text(newAffirmations[0]['text']),
-                          // subtitle: Text(newAffirmations[0]['category']),
-                          trailing: const Icon(Icons.star),
-                          onTap: () {},
-                        ))),
-              )
+              affirmationCard('affirmation text here', 'category here'),
+              affirmationCard('affirmation text here', 'category here'),
+              affirmationCard('affirmation text here', 'category here'),
               // Container(
               //   width: MediaQuery.of(context).size.width * 0.9,
               //   height: MediaQuery.of(context).size.height * 0.1,
