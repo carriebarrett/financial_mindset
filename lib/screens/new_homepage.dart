@@ -23,14 +23,14 @@ class _HomePageState extends State<HomePage> {
 
   List _randomizeAffirmations() {
     List affirmationIdList = [
-      Random().nextInt(56),
-      Random().nextInt(56),
-      Random().nextInt(56)
+      Random().nextInt(numberOfAffirmations),
+      Random().nextInt(numberOfAffirmations),
+      Random().nextInt(numberOfAffirmations)
     ];
     for (var i = 1; i < 3; i++) {
       for (var j = i - 1; j >= 0; j--) {
         if (affirmationIdList[i] == affirmationIdList[j]) {
-          affirmationIdList[i] = Random().nextInt(56);
+          affirmationIdList[i] = Random().nextInt(numberOfAffirmations);
         }
       }
     }
@@ -69,6 +69,9 @@ class _HomePageState extends State<HomePage> {
                             Center(child: CircularProgressIndicator())
                           ]));
                     } else {
+                      debugPrint(
+                          snapshot.data?.docs[affirmationIdList[0]]['text']);
+                      debugPrint(snapshot.data?.docs[affirmationIdList[0]].id);
                       return Padding(
                         padding: EdgeInsets.all(
                             MediaQuery.of(context).size.width * 0.05),
@@ -77,6 +80,10 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text("Today's Affirmations",
                                   style: Theme.of(context).textTheme.headline4),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                              ),
                               Center(
                                   child: ListView(
                                 shrinkWrap: true,
@@ -85,17 +92,23 @@ class _HomePageState extends State<HomePage> {
                                       snapshot.data?.docs[affirmationIdList[0]]
                                           ['text'],
                                       snapshot.data?.docs[affirmationIdList[0]]
-                                          ['category']),
+                                          ['category'],
+                                      snapshot
+                                          .data?.docs[affirmationIdList[0]].id),
                                   affirmationCard(
                                       snapshot.data?.docs[affirmationIdList[1]]
                                           ['text'],
                                       snapshot.data?.docs[affirmationIdList[1]]
-                                          ['category']),
+                                          ['category'],
+                                      snapshot
+                                          .data?.docs[affirmationIdList[1]].id),
                                   affirmationCard(
                                       snapshot.data?.docs[affirmationIdList[2]]
                                           ['text'],
                                       snapshot.data?.docs[affirmationIdList[2]]
-                                          ['category']),
+                                          ['category'],
+                                      snapshot
+                                          .data?.docs[affirmationIdList[2]].id),
                                 ],
                               ))
                             ]),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 
-Widget affirmationCard(text, category) {
+Widget affirmationCard(text, category, id) {
   return Semantics(
       button: true,
       label: 'Affirmation tile',
@@ -14,6 +15,8 @@ Widget affirmationCard(text, category) {
                 title: Text(text),
                 subtitle: Text(category),
                 trailing: const Icon(Icons.star),
-                onTap: () {},
+                onTap: () async {
+                  debugPrint('id is $id');
+                },
               ))));
 }

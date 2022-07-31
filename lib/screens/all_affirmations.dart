@@ -53,7 +53,8 @@ class _AllAffirmationsPageState extends State<AllAffirmationsPage> {
                                     var affirmation =
                                         snapshot.data?.docs[index];
                                     return affirmationCard(affirmation['text'],
-                                        affirmation['category']);
+                                        affirmation['category'],
+                                        affirmation.id);
                                   }))
                         ]),
                       );

@@ -75,9 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 "Today's Affirmations",
                 style: Theme.of(context).textTheme.headline4,
               ),
-              affirmationCard('affirmation text here', 'category here'),
-              affirmationCard('affirmation text here', 'category here'),
-              affirmationCard('affirmation text here', 'category here'),
+              affirmationCard('affirmation text here', 'category here', 100),
+              affirmationCard('affirmation text here', 'category here', 200),
+              affirmationCard('affirmation text here', 'category here', 300),
               // Container(
               //   width: MediaQuery.of(context).size.width * 0.9,
               //   height: MediaQuery.of(context).size.height * 0.1,

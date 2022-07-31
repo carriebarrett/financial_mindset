@@ -7,3 +7,5 @@ const honoluluBlue = Color.fromRGBO(6, 106, 178, 1);
 const goldCrayola = Color.fromRGBO(238, 197, 132, 1);
 
 const appTitle = 'Financial Mind\$et';
+
+const numberOfAffirmations = 55;
